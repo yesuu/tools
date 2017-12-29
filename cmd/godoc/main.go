@@ -100,6 +100,9 @@ var (
 
 	// source code notes
 	notesRx = flag.String("notes", "BUG", "regular expression matching note markers to show")
+
+	srcLink  = flag.String("srclink", ":", "replace URL prefix")
+	markdown = flag.Bool("md", false, "print Markdown in command-line mode")
 )
 
 func usage() {
@@ -244,6 +247,8 @@ func main() {
 	pres.DeclLinks = *declLinks
 	pres.SrcMode = *srcMode
 	pres.HTMLMode = *html
+	pres.MarkdownMode = *markdown
+	pres.SrcLink = *srcLink
 	if *notesRx != "" {
 		pres.NotesRx = regexp.MustCompile(*notesRx)
 	}

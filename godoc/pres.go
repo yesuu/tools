@@ -33,6 +33,7 @@ type Presentation struct {
 	ImplementsHTML,
 	MethodSetHTML,
 	PackageHTML,
+	PackageMarkdown,
 	PackageText,
 	SearchHTML,
 	SearchDocHTML,
@@ -53,6 +54,8 @@ type Presentation struct {
 	SrcMode bool
 	// HTMLMode outputs HTML instead of plain text in command-line mode.
 	HTMLMode bool
+	// MarkdownMode outputs Markdown instead of plain text in command-line mode.
+	MarkdownMode bool
 
 	// NotesRx optionally specifies a regexp to match
 	// notes to render in the output.
@@ -92,6 +95,8 @@ type Presentation struct {
 	initFuncMapOnce sync.Once
 	funcMap         template.FuncMap
 	templateFuncs   template.FuncMap
+
+	SrcLink string
 }
 
 // NewPresentation returns a new Presentation from a corpus.

@@ -60,6 +60,7 @@ var files = []string{
 	"methodset.html",
 	"opensearch.xml",
 	"package.html",
+	"package.md",
 	"package.txt",
 	"play.js",
 	"playground.js",

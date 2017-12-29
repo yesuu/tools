@@ -106,6 +106,20 @@ func (p *Presentation) initFuncMap() {
 
 		// formatting of PageInfoMode query string
 		"modeQueryString": modeQueryString,
+
+		"replace": func(old, new string, n int, s string) string {
+			return strings.Replace(s, old, new, n)
+		},
+
+		"formatSrcLink": func(url string) string {
+			if strings.Index(url, "?") >= 0 && strings.Index(url, "#") >= 0 {
+				url = url[:strings.Index(url, "?")] + url[strings.Index(url, "#"):]
+			}
+			a := strings.Split(p.SrcLink, ":")
+			url = strings.TrimPrefix(url, "/src/"+a[0])
+			url = a[1] + url
+			return url
+		},
 	}
 	if p.URLForSrc != nil {
 		p.funcMap["srcLink"] = p.URLForSrc
@@ -620,8 +634,13 @@ func (p *Presentation) example_textFunc(info *PageInfo, funcName, indent string)
 		}
 		code = strings.Trim(code, "\n")
 
-		buf.WriteString(indent)
-		buf.WriteString("Example:\n")
+		if p.MarkdownMode {
+			buf.WriteString("<a id=\"example_" + eg.Name + "\"></a>\n")
+			buf.WriteString("Example:\n\n")
+		} else {
+			buf.WriteString(indent)
+			buf.WriteString("Example:\n")
+		}
 		buf.WriteString(code)
 		buf.WriteString("\n\n")
 	}

@@ -108,6 +108,10 @@ func readTemplates(p *godoc.Presentation, html bool) {
 	p.PackageText = readTemplate("package.txt")
 	p.SearchText = readTemplate("search.txt")
 
+	if p.MarkdownMode {
+		p.PackageMarkdown = readTemplate("package.md")
+	}
+
 	if html || p.HTMLMode {
 		codewalkHTML = readTemplate("codewalk.html")
 		codewalkdirHTML = readTemplate("codewalkdir.html")

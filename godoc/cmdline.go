@@ -91,7 +91,9 @@ func CommandLine(w io.Writer, fs vfs.NameSpace, pres *Presentation, args []strin
 			// is provided (see documentation for paths below).  In that case,
 			// relpath is set to "/target" (in anticipation of accessing packages there),
 			// and is therefore not expected to match a command.
-			fmt.Fprintf(w, "use 'godoc %s%s' for documentation on the %s command \n\n", cmdPrefix, relpath, relpath)
+			if !pres.MarkdownMode {
+				fmt.Fprintf(w, "use 'godoc %s%s' for documentation on the %s command \n\n", cmdPrefix, relpath, relpath)
+			}
 		}
 	}
 
@@ -114,7 +116,9 @@ func CommandLine(w io.Writer, fs vfs.NameSpace, pres *Presentation, args []strin
 	}
 
 	packageText := pres.PackageText
-	if pres.HTMLMode {
+	if pres.MarkdownMode {
+		packageText = pres.PackageMarkdown
+	} else if pres.HTMLMode {
 		packageText = pres.PackageHTML
 	}
 	if err := packageText.Execute(w, info); err != nil {
