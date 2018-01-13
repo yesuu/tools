@@ -631,11 +631,21 @@ func (p *Presentation) example_textFunc(info *PageInfo, funcName, indent string)
 			code = code[1 : n-1]
 			// unindent
 			code = replaceLeadingIndentation(code, strings.Repeat(" ", p.TabWidth), indent)
+		} else {
+			codel := ""
+			for _, l := range strings.Split(code, "\n") {
+				if l == "" {
+					codel += "\n"
+				} else {
+					codel += indent + l + "\n"
+				}
+			}
+			code = codel
 		}
 		code = strings.Trim(code, "\n")
 
 		if p.MarkdownMode {
-			buf.WriteString("<a id=\"example_" + eg.Name + "\"></a>\n")
+			buf.WriteString("<a id=\"example" + eg.Name + "\"></a>\n")
 			buf.WriteString("Example:\n\n")
 		} else {
 			buf.WriteString(indent)

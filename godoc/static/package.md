@@ -23,7 +23,7 @@
 
 ### Examples
 {{range $.Examples}}
-- [{{example_name .Name}}](#example_{{.Name}}){{end}}{{end}}{{/*
+- [{{example_name .Name}}](#example{{.Name}}){{end}}{{end}}{{/*
 ---------------------------------------
 */}}{{with .Filenames}}
 
